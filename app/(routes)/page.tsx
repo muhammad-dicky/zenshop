@@ -20,7 +20,7 @@ export default async function page() {
         <Billboard data={billboards}/>
       </div>
       <div>
-        <ProductList title={"Featured Products"} items={[]}/>
+        <ProductList title={"Featured Products"} items={products}/>
       </div>
     </Container>
    
