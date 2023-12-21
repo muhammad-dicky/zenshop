@@ -18,9 +18,9 @@ export default async function page() {
     <Container>
       <div>
         <Billboard data={billboards}/>
-      </div>
       <div>
         <ProductList title={"Featured Products"} items={products}/>
+      </div>
       </div>
     </Container>
    
