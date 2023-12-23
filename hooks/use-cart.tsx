@@ -34,6 +34,7 @@ const useCart = create(
         name: "cart-storage",
         storage: createJSONStorage(() => localStorage)
     })
-)
+);
+
 
 export default useCart;
