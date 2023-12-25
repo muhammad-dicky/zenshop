@@ -2,7 +2,10 @@ import getBillboards from '@/actions/get-billboards';
 import getProducts from '@/actions/get-products';
 import Billboard from '@/components/billboard'
 import ProductList from '@/components/product-list';
+import Button from '@/components/ui/Button';
 import Container from '@/components/ui/container';
+import { Instagram } from 'lucide-react';
+import Link from 'next/link';
 import React from 'react'
 
 export const revalidate = 0;
@@ -22,7 +25,8 @@ export default async function page() {
       <div>
         <ProductList title={"Featured Products"} items={products}/>
       </div>
-      
+
+
     </Container>
    
   )

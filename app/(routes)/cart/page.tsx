@@ -2,7 +2,7 @@
 
 import Container from "@/components/ui/container";
 import useCart from "@/hooks/use-cart";
-import CartItem from "./cart-item";
+import CartItem from "./components/cart-item";
 import Summary from "./components/summary";
 
 
