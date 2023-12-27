@@ -5,14 +5,17 @@ import Currency from "@/components/ui/currency";
 import useCart from "@/hooks/use-cart";
 import axios from "axios";
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import CartItem from "./cart-item";
 
 
 const Summary = () => {
     const searchParams = useSearchParams();
     const items = useCart((state) => state.items);
     const removeAll = useCart((state) => state.removeAll);
+
+
   
     useEffect(() => {
       if (searchParams.get('success')) {
@@ -41,6 +44,8 @@ const Summary = () => {
       <div
         className="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8"
       >
+
+
         <h2 className="text-lg font-medium text-gray-900">
           Order summary
         </h2>

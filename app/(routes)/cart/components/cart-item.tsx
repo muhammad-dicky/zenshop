@@ -3,23 +3,48 @@
 import Currency from "@/components/ui/currency";
 import IconButton from "@/components/ui/icon-button";
 import useCart from "@/hooks/use-cart";
+import useStock from "@/hooks/use-stock";
 import { Product } from "@/types";
 import { X } from "lucide-react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 
 interface CartItemProps{
     data: Product;
+    
 };
 
 const CartItem: React.FC<CartItemProps> = ({
-    data
+    data,
 }) => {
     const cart = useCart();
+    const [stock, setStock] = useState(1);
+
+    const {isTotal, setIsTotal} = useStock();
+    
+
 
     const onRemove = () => {
         cart.removeItem(data.id);
     }
+
+    // const onStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const newStock = parseInt(event?.target.value, 10);
+    //     const clampedStock = Math.max(1, newStock);
+
+    //     setStock(clampedStock);
+    // };
+
+    const onStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const newStock = parseInt(event?.target.value, 10);
+        const clampedStock = Math.max(1, newStock);
+    
+        setStock(clampedStock);
+        cart.updateStock(data.id, clampedStock); // Update stock in the cart
+      };
+
+    const totalPrice = parseFloat(data.price) * stock;
 
 
     return (  
@@ -31,6 +56,7 @@ const CartItem: React.FC<CartItemProps> = ({
                 <div className="absolute z-10 right-0 top-0">
                     <IconButton onClick={onRemove} icon={<X size={15}/>} />
                 </div>
+                
                 <div className="relative pr-9 sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
                     <div className="flex justify-between">
                         <p className="text-lg font-semibold text-black">
@@ -38,11 +64,31 @@ const CartItem: React.FC<CartItemProps> = ({
                         </p>
                     </div>
 
+                   <div>
+                    <label htmlFor={`stock-${data.id}`} >
+                        Pieces
+                    </label>
+                    <input 
+                    type="number" 
+                    id={`stock-${data.id}`}
+                    name={`stock-${data.id}`}
+                    value={stock}
+                    onChange={onStockChange}
+                    className="mx-2 border rounded-md p-2 w-16 text-sm"  
+                    />
+                   </div>
+
+                  {/* <div>
+                    Stock: {data.stock}
+                  </div> */}
+
+               
+
                     <div className="mt-1 flex text-sm">
                         <p className="text-gray-500">{data.color.name}</p>
                         <p className="text-gray-500 ml-4 border-l border-gray-200 pl-4">{data.size.name}</p>
                     </div>
-                    <Currency value={data.price}/>
+                    <Currency value={totalPrice}/>
                 </div>
             </div>
         </li>

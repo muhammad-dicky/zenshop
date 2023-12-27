@@ -3,12 +3,17 @@ import toast from "react-hot-toast";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+interface CardItem extends Product{
+    quantity: number;
+}
 
 interface CartStore {
     items: Product[];
     addItem: (data: Product) => void;
     removeItem: (id: string) => void;
     removeAll: () => void;
+    updateStock: (id: string, newStock: number) => void;
+    totalPrice: number;
 };
 
 const useCart = create(
@@ -23,6 +28,7 @@ const useCart = create(
             }
 
             set({ items: [...get().items, data] });
+            
             toast.success("Item added to cart");
         },
         removeItem: (id: string) => {
@@ -30,6 +36,15 @@ const useCart = create(
             toast.success("Item removed from the cart.");
         },
         removeAll: () => set({ items: [] }),
+        updateStock: (id: string, newStock: number) => {
+            set({
+                items: get().items.map((item) =>
+                item.id === id ? {...item, stock: newStock} : item
+                )
+            })
+        },
+        totalPrice: 0,
+
     }), {
         name: "cart-storage",
         storage: createJSONStorage(() => localStorage)
