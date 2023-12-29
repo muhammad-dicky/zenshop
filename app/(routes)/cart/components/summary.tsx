@@ -40,7 +40,8 @@ const Summary = () => {
   
     const onCheckout = async () => {
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-        productIds: items.map((item) => item.id)
+        productIds: items.map((item) => item.id),
+        totalPrice
       });
   
       window.location = response.data.url;
