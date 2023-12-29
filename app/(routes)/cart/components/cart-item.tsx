@@ -8,6 +8,29 @@ import { Product } from "@/types";
 import { X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { create } from "zustand";
+import { useCartStore } from "./useCartStore";
+
+
+// interface useCartItemProps {
+//     data: Product;
+// };
+
+// export const useCartStore = create<{
+//     stock: {
+//         [id: string]: number;
+//     };
+//     setStock: (id: string, newStock: number) => void;
+// }>((set) => ({
+//     stock: {},
+//     setStock: (id: string, newStock: number) =>
+//     set((state) => ({
+//         stock: {
+//             ...state.stock,
+//             [id]: newStock,
+//         },
+//     })),
+// }));
 
 
 interface CartItemProps{
@@ -19,28 +42,38 @@ const CartItem: React.FC<CartItemProps> = ({
     data,
 }) => {
     const cart = useCart();
-    const [stock, setStock] = useState(1);
 
-    const {isTotal, setIsTotal} = useStock();
+    // ini yg asli
+    // const [stock, setStock] = useState(1);
+    const {stock, setStock} = useCartStore((state) => ({
+        stock: state.stock[data.id] || 1,
+        setStock: state.setStock,
+    }));
     
 
+    const {isTotal, setIsTotal} = useStock();
+
+   
 
     const onRemove = () => {
         cart.removeItem(data.id);
-    }
+    };
+
+
+  
 
     // const onStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     //     const newStock = parseInt(event?.target.value, 10);
     //     const clampedStock = Math.max(1, newStock);
-
+    
     //     setStock(clampedStock);
-    // };
-
+    //     cart.updateStock(data.id, clampedStock); // Update stock in the cart
+    //   };
     const onStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const newStock = parseInt(event?.target.value, 10);
         const clampedStock = Math.max(1, newStock);
     
-        setStock(clampedStock);
+        setStock(data.id, clampedStock);
         cart.updateStock(data.id, clampedStock); // Update stock in the cart
       };
 
@@ -81,8 +114,7 @@ const CartItem: React.FC<CartItemProps> = ({
                   {/* <div>
                     Stock: {data.stock}
                   </div> */}
-
-               
+                
 
                     <div className="mt-1 flex text-sm">
                         <p className="text-gray-500">{data.color.name}</p>
