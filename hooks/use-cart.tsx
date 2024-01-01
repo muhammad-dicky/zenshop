@@ -12,7 +12,7 @@ interface CartStore {
     addItem: (data: Product) => void;
     removeItem: (id: string) => void;
     removeAll: () => void;
-    updateStock: (id: string, newStock: number) => void;
+    updateStock: (id: string, newStock: number, data: Product) => void;
     totalPrice: number;
 };
 
@@ -36,12 +36,16 @@ const useCart = create(
             toast.success("Item removed from the cart.");
         },
         removeAll: () => set({ items: [] }),
-        updateStock: (id: string, newStock: number) => {
-            set({
-                items: get().items.map((item) =>
-                item.id === id ? {...item, stock: newStock} : item
-                )
-            })
+        updateStock: (id: string, newStock: number, data:Product) => {
+            
+                    set({
+                        items: get().items.map((item) =>
+                        item.id === id ? {...item, quantity: newStock} : item
+                        )
+                    })
+                
+            
+               
         },
         totalPrice: 0,
 

@@ -74,7 +74,7 @@ const CartItem: React.FC<CartItemProps> = ({
         const clampedStock = Math.max(1, newStock);
     
         setStock(data.id, clampedStock);
-        cart.updateStock(data.id, clampedStock); // Update stock in the cart
+        cart.updateStock(data.id, clampedStock, data); // Update stock in the cart
       };
 
     const totalPrice = parseFloat(data.price) * stock;
@@ -111,9 +111,9 @@ const CartItem: React.FC<CartItemProps> = ({
                     />
                    </div>
 
-                  {/* <div>
+                  <div>
                     Stock: {data.stock}
-                  </div> */}
+                  </div>
                 
 
                     <div className="mt-1 flex text-sm">
