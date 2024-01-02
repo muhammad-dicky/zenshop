@@ -37,15 +37,11 @@ const useCart = create(
         },
         removeAll: () => set({ items: [] }),
         updateStock: (id: string, newStock: number, data:Product) => {
-            
-                    set({
-                        items: get().items.map((item) =>
-                        item.id === id ? {...item, quantity: newStock} : item
-                        )
-                    })
-                
-            
-               
+                        set({
+                            items: get().items.map((item) =>
+                            item.id === id ? {...item, quantity: newStock} : item
+                            )
+                        })
         },
         totalPrice: 0,
 

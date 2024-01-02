@@ -21,7 +21,7 @@ const Summary = () => {
     
     const totalPrice = items.reduce( (total, item) => {
       const itemStock = stock[item.id];
-      console.log(itemStock)
+      // console.log(itemStock)
       return total + Number(item.price) * Number(itemStock);
     }, 0);
   

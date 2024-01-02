@@ -10,6 +10,8 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { create } from "zustand";
 import { useCartStore } from "./useCartStore";
+import { Size } from '../../../../types';
+import toast from "react-hot-toast";
 
 
 // interface useCartItemProps {
@@ -70,11 +72,16 @@ const CartItem: React.FC<CartItemProps> = ({
     //     cart.updateStock(data.id, clampedStock); // Update stock in the cart
     //   };
     const onStockChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+       if(Number(event?.target.value) <= data.stock){
         const newStock = parseInt(event?.target.value, 10);
         const clampedStock = Math.max(1, newStock);
+        console.log(event?.target.value)
     
         setStock(data.id, clampedStock);
-        cart.updateStock(data.id, clampedStock, data); // Update stock in the cart
+        cart.updateStock(data.id, clampedStock, data);
+       }else{
+        toast.error("Out of stock")
+       }
       };
 
     const totalPrice = parseFloat(data.price) * stock;
