@@ -14,34 +14,16 @@ import { Size } from '../../../../types';
 import toast from "react-hot-toast";
 
 
-// interface useCartItemProps {
-//     data: Product;
-// };
-
-// export const useCartStore = create<{
-//     stock: {
-//         [id: string]: number;
-//     };
-//     setStock: (id: string, newStock: number) => void;
-// }>((set) => ({
-//     stock: {},
-//     setStock: (id: string, newStock: number) =>
-//     set((state) => ({
-//         stock: {
-//             ...state.stock,
-//             [id]: newStock,
-//         },
-//     })),
-// }));
-
 
 interface CartItemProps{
     data: Product;
+    quantity: number;
     
 };
 
 const CartItem: React.FC<CartItemProps> = ({
     data,
+    quantity = 1
 }) => {
     const cart = useCart();
 

@@ -17,11 +17,13 @@ const Summary = () => {
     const removeAll = useCart((state) => state.removeAll);
 
     const {stock} = useCartStore();
+    
 
     
     const totalPrice = items.reduce( (total, item) => {
       const itemStock = stock[item.id];
-      // console.log(itemStock)
+      console.log(itemStock)
+      console.log(item.id)
       return total + Number(item.price) * Number(itemStock);
     }, 0);
   
@@ -39,9 +41,11 @@ const Summary = () => {
     
   
     const onCheckout = async () => {
+
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
         productIds: items.map((item) => item.id),
-        totalPrice: Number(totalPrice)
+        totalPrice: Number(totalPrice),
+        
       }
       );
   
@@ -57,6 +61,7 @@ const Summary = () => {
         <h2 className="text-lg font-medium text-gray-900">
           Order summary
         </h2>
+
         
         <div className="mt-6 space-y-4">
           <div className="flex items-center justify-between border-t border-gray-200 pt-4">
