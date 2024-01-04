@@ -16,13 +16,16 @@ const Summary = () => {
     const items = useCart((state) => state.items);
     const removeAll = useCart((state) => state.removeAll);
 
+    const stockData = useCartStore((state) => state.stock);
+
+   
+
     const {stock} = useCartStore();
-    
 
     
     const totalPrice = items.reduce( (total, item) => {
       const itemStock = stock[item.id];
-      console.log(itemStock)
+      console.log(`ini adalah totalPrice: ${itemStock}`);
       console.log(item.id)
       return total + Number(item.price) * Number(itemStock);
     }, 0);
@@ -38,14 +41,13 @@ const Summary = () => {
       }
     }, [searchParams, removeAll]);
   
-    
+
   
     const onCheckout = async () => {
-
       const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
         productIds: items.map((item) => item.id),
         totalPrice: Number(totalPrice),
-        
+        quantityCheckout: Object.values(stockData)
       }
       );
   

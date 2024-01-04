@@ -14,16 +14,12 @@ import { Size } from '../../../../types';
 import toast from "react-hot-toast";
 
 
-
 interface CartItemProps{
     data: Product;
-    quantity: number;
-    
 };
 
 const CartItem: React.FC<CartItemProps> = ({
-    data,
-    quantity = 1
+    data
 }) => {
     const cart = useCart();
 
