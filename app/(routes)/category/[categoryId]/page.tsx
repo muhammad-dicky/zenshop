@@ -8,6 +8,7 @@ import Filter from "./components/filter";
 import NoResult from "@/components/ui/no-result";
 import ProductCard from "@/components/ui/product-card";
 import MobileFilters from "./components/mobile-filters";
+import getSubcat from "@/actions/get-subcat";
 
 export const revalidate = 0;
 
@@ -18,6 +19,7 @@ interface CategoryPageProps {
     searchParams: {
         colorId: string;
         sizeId: string;
+        subcatId: string;
     }
 }
 
@@ -28,8 +30,10 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
         categoryId: params.categoryId,
         colorId: searchParams.colorId,
         sizeId: searchParams.sizeId,
+        subcatId: searchParams.subcatId,
     });
     const sizes = await getSizes();
+    const subcat = await getSubcat();
     const colors = await getColors();
     const category = await getCategory(params.categoryId);
 
@@ -50,6 +54,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                     <div className="hidden lg:block">
                         <Filter data={sizes} name="Sizes" valueKey="sizeId" />
                         <Filter data={colors} name="Colors" valueKey="colorId" />
+                        <Filter data={subcat} name="Sub Category" valueKey="subcatId" />
                         
                     </div>
                     <div className="mt-6 lg:col-span-4 lg:mt-0">

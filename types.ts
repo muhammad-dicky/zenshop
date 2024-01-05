@@ -18,6 +18,7 @@ export interface Product {
     price: string;
     isFeatured: boolean;
     size: Size;
+    subcat: Subcat;
     color: Color;
     images: Image[];
 };
@@ -28,6 +29,12 @@ export interface Image {
 }
 
 export interface Size {
+    id: string;
+    name: string;
+    value: string;
+}
+
+export interface Subcat {
     id: string;
     name: string;
     value: string;

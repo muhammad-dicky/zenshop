@@ -45,6 +45,12 @@ const Info: React.FC<InfoProps> = ({
                 </div>
                 </div>
                 <div className="flex items-center gap-x-4">
+                    <h3 className="font-semibold text-black">Subcat:</h3>
+                <div>
+                    {data?.subcat?.name}
+                </div>
+                </div>
+                <div className="flex items-center gap-x-4">
                     <h3 className="font-semibold text-black">Color:</h3>
                 <div className="flex gap-1">
                     {data?.color?.name}
