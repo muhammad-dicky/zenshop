@@ -5,6 +5,7 @@ import Button from "./ui/Button";
 import { useEffect, useState } from "react";
 import useCart from "@/hooks/use-cart";
 import { useRouter } from "next/navigation";
+import { UserButton } from "@clerk/nextjs";
 
 const NavbarActions = () => {
    const [isMounted, setIsMounted] = useState(false);
@@ -23,12 +24,21 @@ const NavbarActions = () => {
 
     return ( 
         <div className="ml-auto flex items-center gap-x-4">
+         <div onClick={() => router.push("/order")} className="cursor-pointer hover:text-gray-500">
+            Order
+         </div>
+
            <Button onClick={() => router.push("/cart")} className="flex items-center rounded-full bg-black px-4 py-2">
             <ShoppingBag color="white" size={20}/>
             <span className="ml-2 text-sm font-medium text-white">
                {cart.items.length}
             </span>
            </Button>
+
+
+           <div>
+            <UserButton afterSignOutUrl="/"/>
+           </div>
         </div>
      );
 }
