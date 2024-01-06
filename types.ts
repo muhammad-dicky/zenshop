@@ -73,6 +73,6 @@ export interface Order{
     orderItems: OrderItem[];
     totalPrice: number
     isPaid: boolean
-    createdAt: Date
+    createdAt: string
     total: number
 }

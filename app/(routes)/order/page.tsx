@@ -1,5 +1,6 @@
 import getOrders from "@/actions/get-orders";
 import { OrderClient } from "./components/client";
+import { formatter } from "@/lib/utils";
 
 
 export const revalidate = 0;
@@ -24,18 +25,19 @@ const OrderPage: React.FC<OrderPageProps> = async ({
         const productStock = orderItem.quantity || 'Quantity tidak tersedia'
         return `${productName} (Quantity Order: ${productStock})`
     }).join(', '),
-    totalPrice: (item.total),
+    totalPrice: formatter.format(item.total),
     // totalPrice: formatter.format(item.orderItems.reduce((total, item) => {
     //     return total + Number(item.product.price)
     // }, 0)),
     isPaid: item.isPaid,
-    createdAt: (item.createdAt, "MMMM do, yyyy")
+    createdAt: (item.createdAt)
 }))
 
 
   return ( 
     <div className="flex-col">
       <div className="flex-1 space-y-4 p-8 pt-6">
+        {/* @ts-ignore */}
       <OrderClient data={formattedOrders}/>
 
       </div>
